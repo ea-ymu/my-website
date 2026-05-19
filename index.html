@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abygail Odinada</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111111;
+      --white: #ffffff;
+      --gray: #f5f5f5;
+      --mid-gray: #e5e5e5;
+      --dark-gray: #757575;
+      --red: #cc0000;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--mid-gray);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--dark-gray); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, #222 0%, transparent 60%),
+        linear-gradient(160deg, #1a1a1a 0%, #000 100%);
+    }
+
+    /* decorative geometric shapes — Nike uses bold graphic elements */
+    .hero-shape {
+      position: absolute;
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55vw;
+      height: 55vw;
+      max-width: 700px;
+      max-height: 700px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a2a2a 0%, #181818 100%);
+      border: 1px solid #333;
+    }
+
+    .hero-shape::after {
+      content: '';
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      border: 1px solid #333;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid rgba(255,255,255,0.2);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: #aaa;
+      max-width: 400px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--black);
+      border: none;
+    }
+
+    .btn-white:hover { background: #e5e5e5; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.4);
+    }
+
+    .btn-ghost:hover { border-color: var(--white); }
+
+    .btn-black {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+    }
+
+    .btn-black:hover { background: #333; }
+
+    .btn-outline-black {
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+    }
+
+    .btn-outline-black:hover { background: var(--black); color: var(--white); }
+
+    /* ── MARQUEE TICKER ── */
+    .ticker {
+      background: var(--black);
+      color: var(--white);
+      padding: 0.85rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 18s linear infinite;
+      gap: 0;
+    }
+
+    .ticker-item {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0 2.5rem;
+    }
+
+    .ticker-item::after {
+      content: '·';
+      margin-left: 2.5rem;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── FEATURED SECTION ── */
+    .featured {
+      background: var(--gray);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 90vh;
+    }
+
+    .featured-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem;
+    }
+
+    .featured-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .featured-title {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .featured-body {
+      font-size: 1rem;
+      color: var(--dark-gray);
+      line-height: 1.8;
+      max-width: 380px;
+      margin-bottom: 2.5rem;
+    }
+
+    .featured-graphic {
+      background: var(--black);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    .featured-graphic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      position: absolute;
+      inset: 0;
+      filter: grayscale(10%);
+      transition: filter 0.4s;
+    }
+
+    .featured-graphic:hover img { filter: grayscale(0%); }
+
+    .featured-graphic-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--mid-gray);
+      border-bottom: 1px solid var(--mid-gray);
+    }
+
+    .stat {
+      padding: 3.5rem 2.5rem;
+      border-right: 1px solid var(--mid-gray);
+      text-align: center;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+    }
+
+    /* ── SKILLS GRID ── */
+    .skills-section {
+      padding: 6rem 4rem;
+    }
+
+    .skills-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid var(--black);
+      padding-bottom: 1.5rem;
+    }
+
+    .skills-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .skills-count {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--mid-gray);
+      border: 1px solid var(--mid-gray);
+    }
+
+    .skill-card {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      transition: background 0.2s, color 0.2s;
+      cursor: default;
+    }
+
+    .skill-card:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .skill-card:hover .skill-desc { color: #aaa; }
+
+    .skill-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--dark-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-card:hover .skill-num { color: #666; }
+
+    .skill-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-desc {
+      font-size: 0.88rem;
+      color: var(--dark-gray);
+      line-height: 1.7;
+    }
+
+    /* ── FULL-BLEED CALLOUT ── */
+    .callout {
+      background: var(--black);
+      color: var(--white);
+      padding: 8rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .callout-bg-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(8rem, 20vw, 22rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.03);
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .callout-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .callout-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+      margin-bottom: 2rem;
+    }
+
+    .callout h2 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      margin-bottom: 2.5rem;
+    }
+
+    .callout p {
+      font-size: 1rem;
+      color: #aaa;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--dark-gray);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+    }
+
+    .contact-info {
+      border-top: 2px solid var(--black);
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--mid-gray);
+    }
+
+    .contact-row-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+    }
+
+    .contact-row-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--black);
+      transition: color 0.15s;
+    }
+
+    .contact-row-value:hover { color: var(--dark-gray); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { padding: 0 2rem 5rem; }
+      .featured { grid-template-columns: 1fr; }
+      .featured-graphic { min-height: 280px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--mid-gray); }
+      .skills-section { padding: 4rem 2rem; }
+      .callout { padding: 5rem 2rem; }
+      .contact-section { grid-template-columns: 1fr; padding: 4rem 2rem; }
+      footer { padding: 2rem; flex-direction: column; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Abygail Odinada</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-shape"></div>
+    <div class="hero-content">
+      <img src="photo.jpg" alt="Abygail Odinada" class="hero-avatar" />
+      <p class="hero-eyebrow">Portfolio · 2026</p>
+      <h1>
+        Abygail
+        <span>Odinada</span>
+      </h1>
+      <p class="hero-sub">Driven by purpose. Defined by results. Building what matters, one step at a time.</p>
+      <div class="hero-cta">
+        <a href="#about" class="btn btn-white">Discover More</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Creative Thinking</span>
+      <span class="ticker-item">Problem Solving</span>
+      <span class="ticker-item">Collaboration</span>
+      <span class="ticker-item">Growth Mindset</span>
+      <span class="ticker-item">Leadership</span>
+      <span class="ticker-item">Innovation</span>
+      <span class="ticker-item">Creative Thinking</span>
+      <span class="ticker-item">Problem Solving</span>
+      <span class="ticker-item">Collaboration</span>
+      <span class="ticker-item">Growth Mindset</span>
+      <span class="ticker-item">Leadership</span>
+      <span class="ticker-item">Innovation</span>
+    </div>
+  </div>
+
+  <!-- ABOUT / FEATURED -->
+  <div id="about" class="featured">
+    <div class="featured-text">
+      <p class="featured-label">About Me</p>
+      <h2 class="featured-title">Built to Move Forward</h2>
+      <p class="featured-body">
+        I'm Abygail — a passionate, driven individual who thrives on challenge and connection. Whether I'm tackling a complex problem, collaborating with a team, or taking on something entirely new, I show up with purpose and energy.
+      </p>
+      <p class="featured-body">
+        I believe the best results come from genuine curiosity and the courage to keep growing. I'm always looking for the next opportunity to learn, create, and make an impact that lasts.
+      </p>
+      <div style="margin-top: 1rem;">
+        <a href="#contact" class="btn btn-black">Connect With Me</a>
+      </div>
+    </div>
+    <div class="featured-graphic">
+      <img src="photo.jpg" alt="Abygail Odinada" />
+      <div class="featured-graphic-overlay"></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Commitment</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Curiosity</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">Day 1</div>
+      <div class="stat-label">Always Mindset</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <section id="skills" class="skills-section">
+    <div class="skills-header">
+      <h2 class="skills-title">What I Do</h2>
+      <span class="skills-count">04 Skills</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-num">01</div>
+        <div class="skill-name">Creative Thinking</div>
+        <div class="skill-desc">Finding fresh angles and bold ideas where others see dead ends. Creativity isn't a talent — it's a discipline.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">02</div>
+        <div class="skill-name">Collaboration</div>
+        <div class="skill-desc">Great outcomes come from great teams. I communicate clearly, listen actively, and bring people together.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">03</div>
+        <div class="skill-name">Problem Solving</div>
+        <div class="skill-desc">Breaking complex challenges into clear, actionable steps. I don't avoid hard problems — I run toward them.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">04</div>
+        <div class="skill-name">Growth Mindset</div>
+        <div class="skill-desc">Feedback is fuel. I stay curious, adapt quickly, and never stop leveling up — in work and in life.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <div class="callout-bg-text">Just Do It</div>
+    <div class="callout-content">
+      <p class="callout-label">My Philosophy</p>
+      <h2>Don't Wait.<br>Create.</h2>
+      <p>Opportunity doesn't knock — it's built. Every day is a chance to show up, push further, and make something worth being proud of.</p>
+      <a href="#contact" class="btn btn-white">Start a Conversation</a>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div>
+      <h2 class="contact-title">Let's Work Together</h2>
+      <p class="contact-sub">Have a project, an idea, or just want to connect? I'd love to hear from you. Drop me a message and let's see what we can build.</p>
+      <a href="mailto:ea@ymu.org" class="btn btn-black">Send an Email</a>
+    </div>
+    <div>
+      <div class="contact-info">
+        <div class="contact-row">
+          <span class="contact-row-label">Email</span>
+          <a href="mailto:ea@ymu.org" class="contact-row-value">ea@ymu.org</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">LinkedIn</span>
+          <a href="#" class="contact-row-value">Add your link →</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Location</span>
+          <span class="contact-row-value">Add your city</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Availability</span>
+          <span class="contact-row-value">Open to opportunities</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">AO</span>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="footer-copy">&copy; 2026 Abygail Odinada</span>
+  </footer>
+
+</body>
+</html>
